@@ -5,8 +5,19 @@
     <script>
         // Change the link inside the quotation marks to your desired site
         const destination = "https://www.google.com";
-        
-        window.location.replace(destination);
+
+        window.addEventListener("load", async () => {
+            try {
+                await fetch(destination, { method: "HEAD", mode: "no-cors", cache: "no-store" });
+                window.location.replace(destination);
+            } catch (error) {
+                document.body.innerHTML = `
+                    <h1>Redirection failed</h1>
+                    <p>The destination could not be reached.</p>
+                    <a href="${destination}">Try again</a>
+                `;
+            }
+        });
     </script>
 </head>
 <body>
